@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import ESLintPlugin from 'eslint-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import autoprefixer from 'autoprefixer'
 import dotenv from 'dotenv'
 
 const config: webpack.Configuration = {
@@ -42,7 +43,20 @@ const config: webpack.Configuration = {
               }
             }
           },
-          'sass-loader']
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    autoprefixer
+                  ]
+                ]
+              }
+            }
+          },
+          'sass-loader'
+        ]
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
