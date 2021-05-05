@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+    font-family: 'Circe Regular';
+    src: url('./common/fonts/Circle/Circe-Regular.eot');
+    src: url('./common/fonts/Circle/Circe-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./common/fonts/Circle/Circe-Regular.woff') format('woff'),
+    url('./common/fonts/Circle/Circe-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Circe Bold';
+    src: url('./common/fonts/Circle/Circe-Bold.eot');
+    src: url('./common/fonts/Circle/Circe-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./common/fonts/Circle/Circe-Bold.woff') format('woff'),
+    url('./common/fonts/Circle/Circe-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
