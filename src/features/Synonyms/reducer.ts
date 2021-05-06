@@ -36,12 +36,11 @@ export const SynonymsReducer = (state = initialState, action: ActionTypes): type
         editMode: findEditedSynonym(synonyms)
       }
     }
-    case 'CLEAR_SYNONYMS': {
+    case 'CLEAR_SYNONYMS':
       return {
         ...state,
         synonyms: []
       }
-    }
     default: return state
   }
 }
