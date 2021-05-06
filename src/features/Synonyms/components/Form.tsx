@@ -1,12 +1,12 @@
 import React, {
-  FC, useCallback, useEffect, useState
+  FC, useEffect, useState
 } from 'react'
 import { useDispatch } from 'react-redux'
-import { Icons } from '../../../../../common/icons'
-import { addSynonym, updateSynonym, setEditMode } from '../../../actions'
-import styles from '../../../styles.module.sass'
-import { Button } from '../../../../../common/components/Button'
-import { Input } from '../../../../../common/components/Input'
+import { Icons } from '../../../common/icons'
+import { actions } from '../actions'
+import styles from '../styles.module.sass'
+import { Button } from '../../../common/components/Button'
+import { Input } from '../../../common/components/Input'
 
 interface IForm {
     id?: number
@@ -16,50 +16,50 @@ interface IForm {
 
 export const Form: FC<IForm> = ({ id, title, edit }) => {
   const dispatch = useDispatch()
-  const [synonym, setSynonym] = useState('')
+  const [synonymTitle, setSynonymTitle] = useState('')
   const [errorText, setErrorText] = useState(false)
 
   useEffect(() => {
     if (title) {
-      setSynonym(title)
+      setSynonymTitle(title)
     }
   }, [title])
 
   const formTitle = edit ? 'редактирование синонима' : 'добавление синонима'
   const buttonTitle = edit ? 'Сохранить' : 'Добавить'
 
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (errorText) setErrorText(false)
-    setSynonym(e.target.value)
-  }, [errorText])
+    setSynonymTitle(e.target.value)
+  }
 
-  const onSubmit = useCallback((e: any) => {
+  const onSubmit = (e: any) => {
     e.preventDefault()
     save()
-  }, [synonym])
+  }
 
-  const save = useCallback(() => {
-    if (synonym) {
+  const save = () => {
+    if (synonymTitle) {
       if (!id) {
-        dispatch(addSynonym(synonym))
+        dispatch(actions.addSynonym(synonymTitle))
       } else {
-        dispatch(updateSynonym(id, synonym))
+        dispatch(actions.updateSynonym(id, synonymTitle))
       }
-      setSynonym('')
+      setSynonymTitle('')
     } else {
       setErrorText(true)
     }
-  }, [id, synonym])
+  }
 
-  const close = useCallback(() => {
-    if (id) dispatch(setEditMode(id))
-  }, [id])
+  const close = () => {
+    if (id) dispatch(actions.setEditModeSynonym(id))
+  }
 
   return (
     <div className={styles.formContainer}>
       <div className={styles.formHeader}>{formTitle}:</div>
       <form onSubmit={onSubmit}>
-        <Input value={synonym} error={errorText} onChange={onChange} />
+        <Input value={synonymTitle} error={errorText} onChange={onChange} />
         <div className={styles.formButtonContainer}>
           <Button title={buttonTitle} />
           {edit && <Icons.close onClick={close} />}

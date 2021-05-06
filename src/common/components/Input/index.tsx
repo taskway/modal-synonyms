@@ -9,7 +9,7 @@ interface IInput {
 }
 
 export const Input: FC<IInput> = ({ value, onChange, error }) => (
-  <div>
+  <>
     <input
       id="synonym"
       className={styles.formInput}
@@ -19,5 +19,5 @@ export const Input: FC<IInput> = ({ value, onChange, error }) => (
       onChange={onChange}
     />
     {error && <div className={styles.alert}><span><Icons.alert /></span> Текст ошибки</div>}
-  </div>
+  </>
 )

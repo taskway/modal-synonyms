@@ -1,8 +1,8 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { Icons } from '../../../../../common/icons'
-import { removeSynonym, setEditMode } from '../../../actions'
-import styles from '../../../styles.module.sass'
+import { Icons } from '../../../common/icons'
+import { actions } from '../actions'
+import styles from '../styles.module.sass'
 
 interface ITag {
     id: number
@@ -12,13 +12,13 @@ interface ITag {
 export const Tag: FC<ITag> = ({ id, title }) => {
   const dispatch = useDispatch()
 
-  const edit = useCallback(() => {
-    dispatch(setEditMode(id))
-  }, [id])
+  const edit = () => {
+    dispatch(actions.setEditModeSynonym(id))
+  }
 
-  const remove = useCallback(() => {
-    dispatch((removeSynonym(id)))
-  }, [id])
+  const remove = () => {
+    dispatch((actions.removeSynonym(id)))
+  }
 
   return (
     <div className={styles.tagContainer}>

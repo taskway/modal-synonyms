@@ -6,8 +6,7 @@ export type ActionTypes = InferActionsTypes<typeof actions>
 export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 export type InitialStateType = {
-    savedSynonyms: SynonymType[]
-    editedSynonyms: SynonymType[]
+    synonyms: SynonymType[]
     editMode: boolean
 }
 

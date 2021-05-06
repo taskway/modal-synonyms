@@ -25,7 +25,7 @@ export const Button: FC<IButton> = ({ title, loading, disabled }) => {
     }
   }
   return (
-    <div>
+    <>
       {loading && <div className={styles.title}>загрузка</div>}
       <button
         style={style}
@@ -36,7 +36,7 @@ export const Button: FC<IButton> = ({ title, loading, disabled }) => {
       >
         {value}
       </button>
-    </div>
+    </>
 
   )
 }

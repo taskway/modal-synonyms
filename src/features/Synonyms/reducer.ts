@@ -1,28 +1,47 @@
 import { ActionTypes, InitialStateType } from './types'
+import {
+  updateSynonym, findEditedSynonym, formatSynonym, setEditModeSynonym
+} from './utils'
 
 const initialState: InitialStateType = {
-  editedSynonyms: [],
-  savedSynonyms: [],
+  synonyms: [],
   editMode: false
 }
 
 export const SynonymsReducer = (state = initialState, action: ActionTypes): typeof initialState => {
   switch (action.type) {
-    case 'SET_EDIT_MODE':
+    case 'ADD_SYNONYM':
       return {
         ...state,
-        editMode: action.payload
+        synonyms: formatSynonym(action.payload.title, state.synonyms)
       }
-    case 'UPDATE_EDITED_SYNONYMS':
+    case 'UPDATE_SYNONYM': {
+      const synonyms = updateSynonym(action.payload.id, action.payload.title, state.synonyms)
       return {
         ...state,
-        editedSynonyms: action.payload
+        synonyms,
+        editMode: findEditedSynonym(synonyms)
       }
-    case 'SAVE_SYNONYMS':
+    }
+    case 'REMOVE_SYNONYM':
       return {
         ...state,
-        savedSynonyms: action.payload
+        synonyms: state.synonyms.filter((i) => i.id !== action.payload.id)
       }
+    case 'SET_EDIT_MODE_SYNONYM': {
+      const synonyms = setEditModeSynonym(action.payload.id, state.synonyms)
+      return {
+        ...state,
+        synonyms,
+        editMode: findEditedSynonym(synonyms)
+      }
+    }
+    case 'CLEAR_SYNONYMS': {
+      return {
+        ...state,
+        synonyms: []
+      }
+    }
     default: return state
   }
 }
