@@ -1,46 +1,34 @@
 import { ActionTypes, InitialStateType } from './types'
-import {
-  updateSynonym, findEditedSynonym, formatSynonym, setEditModeSynonym
-} from './utils'
 
-const initialState: InitialStateType = {
-  synonyms: [],
-  editMode: false
-}
+const initialState: InitialStateType = []
 
 export const SynonymsReducer = (state = initialState, action: ActionTypes): typeof initialState => {
   switch (action.type) {
     case 'ADD_SYNONYM':
-      return {
-        ...state,
-        synonyms: formatSynonym(action.payload.title, state.synonyms)
-      }
+      return [...state, { id: state.length + 1, title: action.title, edit: false }]
     case 'UPDATE_SYNONYM': {
-      const synonyms = updateSynonym(action.payload.id, action.payload.title, state.synonyms)
-      return {
-        ...state,
-        synonyms,
-        editMode: findEditedSynonym(synonyms)
+      const updateSynonymIndex = state.findIndex((synonym) => synonym.id === action.payload.id)
+      const updateSynonyms = [...state]
+      updateSynonyms[updateSynonymIndex] = {
+        ...updateSynonyms[updateSynonymIndex],
+        title: action.payload.title,
+        edit: false
       }
+      return updateSynonyms
     }
     case 'REMOVE_SYNONYM':
-      return {
-        ...state,
-        synonyms: state.synonyms.filter((i) => i.id !== action.payload.id)
-      }
+      return state.filter((i) => i.id !== action.id)
     case 'SET_EDIT_MODE_SYNONYM': {
-      const synonyms = setEditModeSynonym(action.payload.id, state.synonyms)
-      return {
-        ...state,
-        synonyms,
-        editMode: findEditedSynonym(synonyms)
+      const updateSynonymIndex = state.findIndex((synonym) => synonym.id === action.id)
+      const updateSynonyms = [...state]
+      updateSynonyms[updateSynonymIndex] = {
+        ...updateSynonyms[updateSynonymIndex],
+        edit: !updateSynonyms[updateSynonymIndex].edit
       }
+      return updateSynonyms
     }
     case 'CLEAR_SYNONYMS':
-      return {
-        ...state,
-        synonyms: []
-      }
+      return []
     default: return state
   }
 }

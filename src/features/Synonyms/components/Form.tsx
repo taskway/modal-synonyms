@@ -2,11 +2,11 @@ import React, {
   FC, useEffect, useState
 } from 'react'
 import { useDispatch } from 'react-redux'
-import { Icons } from '../../../common/icons'
 import { actions } from '../actions'
 import styles from '../styles.module.sass'
 import { Button } from '../../../common/components/Button'
 import { Input } from '../../../common/components/Input'
+import { Close } from '../../../common/icons'
 
 interface IForm {
     id?: number
@@ -33,7 +33,7 @@ export const Form: FC<IForm> = ({ id, title, edit }) => {
     setSynonymTitle(e.target.value)
   }
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     save()
   }
@@ -62,7 +62,7 @@ export const Form: FC<IForm> = ({ id, title, edit }) => {
         <Input value={synonymTitle} error={errorText} onChange={onChange} />
         <div className={styles.formButtonContainer}>
           <Button title={buttonTitle} />
-          {edit && <Icons.close onClick={close} />}
+          {edit && <Close onClick={close} />}
         </div>
       </form>
     </div>

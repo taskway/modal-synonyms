@@ -5,10 +5,7 @@ import { actions } from './actions'
 export type ActionTypes = InferActionsTypes<typeof actions>
 export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
-export type InitialStateType = {
-    synonyms: SynonymType[]
-    editMode: boolean
-}
+export type InitialStateType = SynonymType[]
 
 export type SynonymType = {
     id: number,

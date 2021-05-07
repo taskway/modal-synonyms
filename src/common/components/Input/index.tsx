@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styles from './styles.module.sass'
-import { Icons } from '../../icons'
+import { Alert } from '../../icons'
 
 interface IInput {
     value: string
@@ -18,6 +18,6 @@ export const Input: FC<IInput> = ({ value, onChange, error }) => (
       value={value}
       onChange={onChange}
     />
-    {error && <div className={styles.alert}><span><Icons.alert /></span> Текст ошибки</div>}
+    {error && <div className={styles.alert}><span><Alert /></span> Текст ошибки</div>}
   </>
 )

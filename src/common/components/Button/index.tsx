@@ -1,6 +1,6 @@
 import React, { FC, useRef } from 'react'
-import { Icons } from '../../icons'
 import styles from './styles.module.sass'
+import { Loading } from '../../icons'
 
 interface IButton {
     title: string
@@ -10,7 +10,7 @@ interface IButton {
 
 export const Button: FC<IButton> = ({ title, loading, disabled }) => {
   const ref = useRef<HTMLButtonElement>(null)
-  const value = loading ? <Icons.loading /> : title
+  const value = loading ? <Loading /> : title
   let style
   if (loading) {
     style = {

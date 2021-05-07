@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { Icons } from '../../../common/icons'
 import { actions } from '../actions'
 import styles from '../styles.module.sass'
+import { PaperBucket, Pencil } from '../../../common/icons'
 
 interface ITag {
     id: number
@@ -24,8 +24,8 @@ export const Tag: FC<ITag> = ({ id, title }) => {
     <div className={styles.tagContainer}>
       <div className={styles.tagTitle}>{title}</div>
       <div className={styles.tagButtons}>
-        <Icons.pencil onClick={edit} />
-        <Icons.paperBucket onClick={remove} />
+        <Pencil onClick={edit} />
+        <PaperBucket onClick={remove} />
       </div>
     </div>
   )

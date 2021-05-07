@@ -1,45 +1,27 @@
 import React, { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../common/types'
-import { Icons } from '../../common/icons'
 import { Form } from './components/Form'
 import styles from './styles.module.sass'
 import { Tag } from './components/Tag'
-import { actions } from './actions'
 import { Modal } from '../Modal'
+import { Info } from '../../common/icons'
 
 export const Synonyms: FC = () => {
-  const { synonyms, editMode } = useSelector((state: RootState) => state.synonyms)
-  const dispatch = useDispatch()
-  const structure = {
-    header: 'Редактирование группы синонимов поисковых фраз',
-    buttons: [
-      {
-        title: 'Сохранить изменения',
-        background: '#5E9574',
-        onClick: () => console.log('Синонимы сохранены')
-      },
-      {
-        title: 'Очистить синонимы',
-        background: '#955E5E',
-        onClick: () => dispatch(actions.clearSynonyms())
-      }
-    ]
-  }
+  const synonyms = useSelector((state: RootState) => state.synonyms)
+  const editMode = synonyms.some((synonym) => synonym.edit)
   return (
-    <Modal header={structure.header} buttons={structure.buttons}>
+    <Modal>
       <div>
         <div className={styles.header}>
           <h4 className={styles.title}>Синонимы</h4>
-          <Icons.info />
+          <Info />
         </div>
         {!editMode && <Form />}
-        {synonyms.map((i) => {
-          if (i.edit) {
-            return <Form key={i.id} id={i.id} title={i.title} edit={i.edit} />
-          }
-          return <Tag key={i.id} id={i.id} title={i.title} />
-        })}
+        {synonyms.map((synonym) => (synonym.edit
+          ? <Form key={synonym.id} id={synonym.id} title={synonym.title} edit={synonym.edit} />
+          : <Tag key={synonym.id} id={synonym.id} title={synonym.title} />
+        ))}
       </div>
     </Modal>
   )
