@@ -36,7 +36,7 @@ export const Modal: FC<IModal> = ({ children }) => {
           {children}
         </section>
         <footer>
-          {buttons.map((i: any) => <Button key={i.title} {...i} />)}
+          {buttons.map((i) => <Button key={i.title} {...i} />)}
         </footer>
       </div>
     </div>
